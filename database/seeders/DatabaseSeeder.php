@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\Users\UserRole;
 use App\Models\Building;
 use App\Models\Category;
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,13 +18,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-         $user = \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example.com',
-             'password' => Hash::make('12345678'),
+         $user = User::factory()->create([
+             'name' => 'Admin',
+             'email' => 'admin@dibumi.com',
+             'password' => Hash::make('password'),
          ]);
+
+         foreach (UserRole::cases() as $role) {
+             User::factory(10)->create([
+                 'role' => $role->value
+             ]);
+         }
 
          Category::factory(50)->create();
          Building::factory(2)->has(Room::factory()->count(10), 'rooms')->create();
