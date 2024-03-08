@@ -1,5 +1,6 @@
 <?php
 
+use chillerlan\QRCode\QRCode;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', fn() => \route('filament.auth.login'))->name('login');
+
+Route::get('/qr', function () {
+    return (new QRCode())->render(request()->query('data'));
+});
