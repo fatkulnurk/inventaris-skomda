@@ -105,6 +105,7 @@ class InventoryResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('photo')
                     ->label('Foto Barang')
+                    ->directory('inventories')
                     ->columnSpanFull()
                     ->required(),
             ]);
@@ -122,32 +123,38 @@ class InventoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category_id')
+                Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('building_id')
+                Tables\Columns\TextColumn::make('building.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('room_id')
+                Tables\Columns\TextColumn::make('room.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('series_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('type')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('color')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('procurement_year')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('registration_date')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
