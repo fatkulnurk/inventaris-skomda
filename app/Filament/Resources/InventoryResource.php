@@ -199,4 +199,12 @@ class InventoryResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    public static function getNavigationItems(): array
+    {
+        return [
+            parent::getNavigationItems()[0]
+                ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.*') && ! request()->routeIs(static::getRouteBaseName() . '.create')),
+        ];
+    }
 }

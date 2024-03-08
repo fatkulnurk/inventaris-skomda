@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -38,6 +39,13 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Pendaftaran Barang')
+                    ->url(fn() => route('filament.admin.resources.inventories.create'))
+                    ->icon('heroicon-o-plus-circle')
+                    ->isActiveWhen(fn() => request()->routeIs('filament.admin.resources.inventories.create'))
+                    ->sort(0),
             ])
             ->middleware([
                 EncryptCookies::class,
