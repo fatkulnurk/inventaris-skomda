@@ -31,4 +31,8 @@ Route::group([
 ], function () {
     Route::get('/profile', [ProfileController::class, 'account'])->name('profile.index');
     Route::get('/inventory', [InventoryController::class, 'inventory'])->name('profile.inventory');
+    Route::group(['as' => 'inventory.', 'prefix' => '/inventory'], function () {
+        Route::get('/find-by-qr', [InventoryController::class, 'findByQr'])->name('find-by-qr');
+        Route::get('/{id}', [InventoryController::class, 'show'])->name('show');
+    });
 });

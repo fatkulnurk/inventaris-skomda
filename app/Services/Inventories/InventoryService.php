@@ -42,4 +42,22 @@ class InventoryService
     {
         return $this->findItem($code);
     }
+
+    public function show(string $key)
+    {
+        $inventory = $this->findItem($key);
+
+        if (blank($inventory)) {
+            return [];
+        }
+
+        // load relationships
+        $inventory->load([
+            'category',
+            'building',
+            'room',
+        ]);
+
+        return $inventory;
+    }
 }
