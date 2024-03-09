@@ -9,7 +9,14 @@ class AuthService
 {
     public function login(array $credentials)
     {
-        $user = User::query()->where('email', $credentials['email'])->first();
+        $user = User::query()
+            ->when(filled($credentials['username']), function ($query) use ($credentials) {
+                return $query->where('username', $credentials['username']);
+            })
+            ->when(filled($credentials['email']), function ($query) use ($credentials) {
+                return $query->where('email', $credentials['email']);
+            })
+            ->first();
 
         if (blank($user)) {
             throw new \Exception('Invalid credentials', 401);
