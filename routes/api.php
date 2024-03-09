@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthContoller;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,12 @@ Route::group([
     'prefix' => '/auth',
     'middleware' => 'throttle:5,1',
 ], function () {
-    Route::get('/login', AuthContoller::class, 'login')->name('login');
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::group([
     'middleware' => 'auth:sanctum'
 ], function () {
+    Route::get('/profile', [ProfileController::class, 'account'])->name('profile.index');
 });

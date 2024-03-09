@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\Request;
 
-class AuthContoller extends Controller
+class AuthController extends Controller
 {
 
     public function __construct(private AuthService $authService = new AuthService())
@@ -34,6 +34,15 @@ class AuthContoller extends Controller
                 'role' => $user->role,
                 'token' => $this->authService->generateToken($user)
             ]
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $this->authService->logout($request->user());
+
+        return response([
+            'message' => 'Success logout'
         ]);
     }
 }
