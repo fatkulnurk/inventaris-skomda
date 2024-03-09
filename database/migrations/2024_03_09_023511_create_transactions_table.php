@@ -16,16 +16,36 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained('users');
             $table->foreignUuid('inventory_id')
                 ->nullable()
+                ->comment('inventaris yang dipinjam')
                 ->constrained('inventories');
-            $table->foreignUuid('building_id')->nullable()->constrained('buildings');
-            $table->foreignUuid('room_id')->nullable()->constrained('rooms');
-            $table->date('date')->nullable()->comment('tanggal transaksi');
-            $table->unsignedInteger('quantity')->default(0);
-            $table->string('type')->nullable()->comment('tipe transaksi');
-            $table->string('note')->nullable();
-            $table->date('borrowed_at')->nullable()->comment('tanggal peminjaman');
-            $table->date('returned_at')->nullable()->comment('tanggal pengembalian');
-            $table->string('status')->nullable();
+            $table->foreignUuid('room_id')
+                ->nullable()
+                ->constrained('rooms');
+            $table->date('date')
+                ->nullable()
+                ->comment('tanggal transaksi');
+            $table->unsignedInteger('quantity')
+                ->default(0);
+            $table->string('type')
+                ->nullable()
+                ->comment('tipe transaksi');
+            $table->string('note')
+                ->nullable();
+            $table->date('borrowed_at')
+                ->nullable()
+                ->comment('tanggal peminjaman');
+            $table->string('borrowed_status')
+                ->nullable()
+                ->comment('status peminjaman, value: verification, Accepted, Rejected');
+            $table->date('returned_at')
+                ->nullable()
+                ->comment('tanggal pengembalian');
+            $table->string('returned_status')
+                ->nullable()
+                ->comment('status pengembalian barang, value: verification, Accepted, Rejected');
+            $table->dateTime('returned_by_user_at')
+                ->nullable()
+                ->comment('tanggal pengembalian');
             $table->timestamps();
             $table->softDeletes();
         });
