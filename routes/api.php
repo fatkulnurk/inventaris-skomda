@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,5 @@ Route::group([
     'middleware' => 'auth:sanctum'
 ], function () {
     Route::get('/profile', [ProfileController::class, 'account'])->name('profile.index');
+    Route::get('/inventory', [InventoryController::class, 'inventory'])->name('profile.inventory');
 });

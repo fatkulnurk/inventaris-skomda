@@ -58,6 +58,9 @@ return new class extends Migration
                 ->comment('harga satuan');
             $table->dateTime('registration_date')->nullable();
             $table->text('photo')->nullable();
+            $table->string('status')
+                ->nullable()
+                ->comment('status barang di pinjam atau tidak (but make sure to use this or use the status from the transaction table)');
             $table->timestamps();
             $table->softDeletes();
         });
