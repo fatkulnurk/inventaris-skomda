@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', fn() => \route('filament.auth.login'))->name('login');
+Route::get('/login', fn() => redirect()->to('/admin'))->name('login');
 
 Route::get('/qr', function () {
     return (new QRCode())->render(request()->query('data'));
