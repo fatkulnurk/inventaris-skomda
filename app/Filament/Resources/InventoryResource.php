@@ -119,9 +119,8 @@ class InventoryResource extends Resource
                     ->label('ID')
                     ->searchable()
                     ->hidden(),
-                Tables\Columns\TextColumn::make('code')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->description(fn(Inventory $record) => $record->code)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
@@ -149,8 +148,9 @@ class InventoryResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
+                    ->money('IDR')
+                    ->sortable()
+                    ->alignRight(),
                 Tables\Columns\TextColumn::make('registration_date')
                     ->dateTime()
                     ->sortable()

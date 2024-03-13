@@ -6,10 +6,12 @@ namespace Database\Seeders;
 use App\Enums\Users\UserRole;
 use App\Models\Building;
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,5 +34,12 @@ class DatabaseSeeder extends Seeder
 
          Category::factory(50)->create();
          Building::factory(2)->has(Room::factory()->count(10), 'rooms')->create();
+
+         Storage::deleteDirectory('public/inventories');
+         Storage::makeDirectory('public/inventories');
+
+         for ($i = 0; $i < 100; $i++) {
+             Inventory::factory()->create();
+         }
     }
 }

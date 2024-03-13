@@ -60,4 +60,11 @@ class InventoryService
 
         return $inventory;
     }
+
+    public function generateCode(string|null $code = null)
+    {
+        $prefix = $code ?? config('code.inventory.code');
+
+        return $prefix . '-' . (Inventory::query()->count() + 1);
+    }
 }

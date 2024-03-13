@@ -36,13 +36,13 @@ return new class extends Migration
                 ->comment('tanggal peminjaman');
             $table->string('borrowed_status')
                 ->nullable()
-                ->comment('status peminjaman, value: verification, Accepted, Rejected');
+                ->comment('status peminjaman, value: pending, Accepted, Rejected');
             $table->date('returned_at')
                 ->nullable()
                 ->comment('tanggal pengembalian');
             $table->string('returned_status')
                 ->nullable()
-                ->comment('status pengembalian barang, value: verification, Accepted, Rejected');
+                ->comment('status pengembalian barang, value: pending, Accepted, Rejected');
             $table->dateTime('returned_by_user_at')
                 ->nullable()
                 ->comment('tanggal pengembalian');
