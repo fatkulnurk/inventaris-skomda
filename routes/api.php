@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\QrController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,5 @@ Route::group([
         Route::get('/{id}', [InventoryController::class, 'show'])->name('show');
     });
 });
+
+Route::get('/qr', QrController::class)->name('qr.index');
