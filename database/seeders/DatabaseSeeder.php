@@ -24,7 +24,10 @@ class DatabaseSeeder extends Seeder
              'name' => 'Admin',
              'email' => 'admin@dibumi.com',
              'password' => Hash::make('password'),
+             'role' => UserRole::ADMIN->value,
          ]);
+         $this->command->info('Delay 3 second');
+         sleep(3);
 
          foreach (UserRole::cases() as $role) {
              User::factory(10)->create([
@@ -32,14 +35,17 @@ class DatabaseSeeder extends Seeder
              ]);
          }
 
-         Category::factory(50)->create();
-         Building::factory(2)->has(Room::factory()->count(10), 'rooms')->create();
+         $this->call([
+             CategorySeeder::class,
+             RoomSeeder::class,
+             InvestorySeeder::class,
+         ]);
 
-         Storage::deleteDirectory('public/inventories');
-         Storage::makeDirectory('public/inventories');
-
-         for ($i = 0; $i < 100; $i++) {
-             Inventory::factory()->create();
-         }
+//         Storage::deleteDirectory('public/inventories');
+//         Storage::makeDirectory('public/inventories');
+//
+//         for ($i = 0; $i < 15; $i++) {
+//             Inventory::factory()->create();
+//         }
     }
 }

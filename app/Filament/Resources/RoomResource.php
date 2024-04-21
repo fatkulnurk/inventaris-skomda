@@ -31,6 +31,9 @@ class RoomResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('code')
                     ->maxLength(255),
+                Forms\Components\Select::make('building_id')
+                    ->relationship('building', 'name')
+                    ->required()
             ]);
     }
 
@@ -44,6 +47,7 @@ class RoomResource extends Resource
                     ->hidden(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('building.name'),
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

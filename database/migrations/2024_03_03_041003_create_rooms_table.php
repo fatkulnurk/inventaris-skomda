@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('code')
                 ->nullable()
                 ->unique();
+            $table->text('description')
+                ->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -102,6 +102,7 @@ class InventoryResource extends Resource
                     ->prefix('Rp')
                     ->required(),
                 Forms\Components\DatePicker::make('registration_date')
+                    ->native(false)
                     ->required(),
                 Forms\Components\FileUpload::make('photo')
                     ->label('Foto Barang')
@@ -114,13 +115,17 @@ class InventoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable()
                     ->hidden(),
+                Tables\Columns\TextColumn::make('code')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->description(fn(Inventory $record) => $record->code)
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),

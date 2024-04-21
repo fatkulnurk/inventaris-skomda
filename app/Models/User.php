@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Users\UserRole;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasUuids, SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
@@ -47,4 +49,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => UserRole::class,
     ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
 }
